@@ -1,0 +1,8 @@
+import bca.jdbc.studentdb;
+
+public class main {
+    public static void main(String[] args) {
+        studentdb studentDatabase = new studentdb();
+        studentDatabase.runMenu();
+    }
+}

@@ -1,0 +1,23 @@
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class InsertRow {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish a connection
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "akash123");
+
+            Statement st = con.createStatement();
+            
+            String query = "Insert into student values(007,'Akash',69,'Male',1999-06-22);";
+            
+           st.executeUpdate(query);
+            
+            System.out.println("Data Inserted");
+            con.close();
+    }
+}

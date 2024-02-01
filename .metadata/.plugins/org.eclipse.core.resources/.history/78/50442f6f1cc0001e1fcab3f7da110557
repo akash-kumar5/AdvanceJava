@@ -1,0 +1,58 @@
+package bca.jdbc;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class student {
+
+	public student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+//	public void insertStudent(Connection con, Scanner sc) throws SQLException {
+//		Statement st = con.createStatement();
+//		System.out.println("Enter student Id: ");
+//		int id = sc.nextInt();
+//		
+//		System.out.println("Enter Student Name: ");
+//		String name = sc.next();
+//		
+//		System.out.println("Enter Student DOB: ");
+//		String dob = sc.next();
+//		
+//		System.out.println("Enter Student Marks: ");
+//		double marks = sc.nextDouble();
+//		
+//		System.out.println("Enter Student Gender: ");
+//		String gender = sc.next();
+//		
+//		
+//		String query = String.format("insert into student values(%d, '%s', %f, %s, '%s')", id, name, marks, gender, dob);
+//	
+//		int rowsAffected = st.executeUpdate(query);
+//		System.out.println(rowsAffected + " record inserted!!!");
+//		
+//	}
+	
+	public void displayStudents(Connection con) throws SQLException {
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("select * from student;");
+		while(rs.next()) {
+			System.out.println(rs.getInt(1) + "  " + rs.getString(2)+"  " + rs.getDouble(3) + "  " + rs.getString(4)+"  "+rs.getDate(5));
+		}
+	}
+	
+//	/
+	
+//	public void removeStudent(Connection con, Scanner sc) throws SQLException {
+//		Statement st = con.createStatement();
+//		System.out.println("Enter Student Id: ");
+//		int id = sc.nextInt();
+//		int rowsAffected = st.executeUpdate("delete from student where id = "+id);
+//		System.out.println(rowsAffected+ " record deleted!!!");
+//	}
+}

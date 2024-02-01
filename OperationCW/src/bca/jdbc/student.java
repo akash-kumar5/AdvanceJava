@@ -1,0 +1,87 @@
+package bca.jdbc;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class student {
+	Scanner sc = new Scanner(System.in);
+	Connection con;
+	int choice;
+
+	public student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+     do {
+         displayMenu();
+         choice = sc.nextInt();
+         switch (choice) {
+             case 1 -> insertStudent(con, sc);
+             case 2 -> updateStudent(con, sc);
+             case 3 -> displayStudents(con);
+             case 4 -> removeStudent(con, sc);
+             case 5 -> System.out.println("Exiting program. Goodbye!");
+             default -> System.out.println("Invalid choice. Please try again.");
+         }
+     } while (choice != 5);
+	
+	public void insertStudent(Connection con, Scanner sc) throws SQLException {
+		Statement st = con.createStatement();
+		System.out.println("Enter student Id: ");
+		int id = sc.nextInt();
+		
+		System.out.println("Enter Student Name: ");
+		String name = sc.next();
+		
+		System.out.println("Enter Student Marks: ");
+		double marks = sc.nextDouble();
+		
+		System.out.println("Enter Student Gender: ");
+		String gender = sc.next();
+		
+		System.out.println("Enter Student DOB: ");
+		String dob = sc.next();
+		
+		String query = String.format("insert into student values(%d, '%s', %f, '%s', '%s')", id, name, marks, gender, dob);
+	
+		int rowsAffected = st.executeUpdate(query);
+		System.out.println(rowsAffected + " record inserted!!!");
+		
+	}
+	
+	private void displayMenu() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void displayStudents(Connection con) throws SQLException {
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("select * from student;");
+		while(rs.next()) {
+			System.out.println(rs.getInt(1) + "  " + rs.getString(2)+"  " + rs.getDouble(3) + "  " + rs.getString(4)+"  "+rs.getDate(5));
+		}
+	}
+	
+	public void updateStudent(Connection con, Scanner sc) throws SQLException {
+		Statement st = con.createStatement();
+		System.out.println("Enter Student's Id: ");
+		int id = sc.nextInt();
+		System.out.println("Enter Student new Name: ");
+		String name = sc.next();
+		String query = String.format("update student set name='%s' where id = %d", name, id);
+		int rowsAffected = st.executeUpdate(query);
+		System.out.println(rowsAffected+ " record updated!!!");
+	}
+	
+	public void removeStudent(Connection con, Scanner sc) throws SQLException {
+		Statement st = con.createStatement();
+		System.out.println("Enter Student Id: ");
+		int id = sc.nextInt();
+		int rowsAffected = st.executeUpdate("delete from student where id = "+id);
+		System.out.println(rowsAffected+ " record deleted!!!");
+	}
+}

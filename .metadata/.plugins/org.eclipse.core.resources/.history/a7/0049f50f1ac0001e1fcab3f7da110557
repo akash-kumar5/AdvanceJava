@@ -1,0 +1,36 @@
+package student;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Scanner;
+import bca.jdbc.student;
+
+public class main {
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		String url = "jdbc:mysql://localhost:3306/hospital";
+		String username = "root";
+	 	String pwd = "navbharti";
+		
+		Connection con = DriverManager.getConnection(url, username, pwd);
+		Scanner sc = new Scanner(System.in);
+		
+		student stud = new student();
+		
+		stud.insertStudent(con, sc);
+		
+		stud.displayStudents(con);
+		
+		stud.updateStudent(con, sc);
+		
+		stud.removeStudent(con, sc);
+		
+		
+		
+	}
+
+}
